@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Story ❤️ Mohona</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<style>
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+font-family:sans-serif;
+overflow-x:hidden;
+background:linear-gradient(#87ceeb,#7ed957);
+color:white;
+transition:1s;
+cursor:auto;
+width:100%;
+}
+
+/* Custom Cursor */
+
+.cursor{
+position:fixed;
+width:30px;
+height:30px;
+background:radial-gradient(circle,#ff4da6,transparent);
+border-radius:50%;
+pointer-events:none;
+z-index:9999;
+transition:transform .1s;
+mix-blend-mode:difference;
+}
+
+.cursor.follower{
+width:20px;
+height:20px;
+background:#ff4da6;
+border-radius:50%;
+}
+
+/* Loading Screen */
+
+#loader{
+position:fixed;
+inset:0;
+background:linear-gradient(45deg,#ff6b9d,#c44569,#ff9ff3);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:99999;
+transition:opacity 1s;
+}
+
+/* Night Mode */
+
+.night{
+background:linear-gradient(#020024,#090979,#000000);
+}
+
+/* Sun */
+
+.sun{
+position:absolute;
+top:80px;
+right:80px;
+width:120px;
+height:120px;
+background:yellow;
+border-radius:50%;
+box-shadow:0 0 80px yellow;
+animation:shine 3s ease-in-out infinite;
+}
+
+@keyframes shine{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.1)}
+}
+
+/* Stars */
+
+.star{
+position:absolute;
+font-size:8px;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+0%{opacity:.3}
+100%{opacity:1}
+}
+
+/* Birds */
+
+.bird{
+position:absolute;
+font-size:35px;
+animation:fly 18s linear infinite;
+}
+
+@keyframes fly{
+0%{left:-50px}
+100%{left:110%}
+}
+
+/* Trees */
+
+.tree{
+position:absolute;
+bottom:0;
+font-size:120px;
+}
+
+/* Flowers */
+
+.flower{
+position:absolute;
+bottom:0;
+font-size:35px;
+animation:grow 2s forwards;
+}
+
+@keyframes grow{
+0%{transform:scale(0)}
+100%{transform:scale(1)}
+}
+
+/* Floating Hearts */
+
+.heart-float{
+position:fixed;
+animation:floatUp 8s linear infinite;
+z-index:1000;
+pointer-events:none;
+}
+
+@keyframes floatUp{
+0%{
+bottom:-10%;
+transform:translateY(0) rotate(0deg);
+opacity:1;
+}
+100%{
+bottom:110vh;
+transform:translateY(-100vh) rotate(360deg);
+opacity:0;
+}
+}
+
+/* Hearts */
+
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:25px;
+animation:hearts 6s linear infinite;
+}
+
+@keyframes hearts{
+0%{transform:translateY(0)}
+100%{transform:translateY(-110vh)}
+}
+
+/* Roses */
+
+.rose{
+position:absolute;
+bottom:0;
+font-size:40px;
+animation:grow 3s forwards;
+}
+
+/* Fireworks */
+
+.firework{
+position:fixed;
+font-size:30px;
+animation:boom 2s forwards;
+}
+
+@keyframes boom{
+0%{transform:scale(0)}
+100%{transform:scale(3);opacity:0}
+}
+
+/* Rainbow Text */
+
+.rainbow{
+background:linear-gradient(45deg,#ff0000,#ff7300,#fffb00,#48f01a,#00d5ff,#0010ff,#ff00dd);
+background-size:400% 400%;
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+animation:rainbow 3s ease infinite;
+}
+
+@keyframes rainbow{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* Buttons */
+
+button{
+background:#ff4da6;
+padding:12px 25px;
+border-radius:30px;
+font-size:18px;
+border:none;
+cursor:none;
+transition:all .3s;
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 10px 30px rgba(255,77,166,.5);
+}
+
+/* Memories */
+
+.memories{
+background:linear-gradient(#ff9acb,#ff4da6);
+}
+
+/* Proposal */
+
+.proposal{
+background:linear-gradient(#ff4da6,#b30059);
+}
+
+/* Person Images */
+
+.person{
+width:120px;
+height:120px;
+border-radius:50%;
+border:4px solid white;
+object-fit:cover;
+}
+
+/* Romantic Font */
+
+.romantic{
+font-family:'Dancing Script',cursive;
+font-weight:bold;
+}
+
+/* Glow */
+
+.glow{
+text-shadow:0 0 20px #ff4da6;
+}
+
+/* Toggle */
+
+.toggle{
+position:fixed;
+top:20px;
+right:20px;
+z-index:999;
+background:rgba(255,255,255,.2);
+backdrop-filter:blur(10px);
+}
+
+/* Timeline */
+
+.timeline{
+max-width:600px;
+margin:auto;
+text-align:left;
+}
+
+/* Diamond Ring */
+
+.diamond-ring{
+font-size:100px;
+animation:sparkle 2s infinite;
+filter:drop-shadow(0 0 20px #fff);
+cursor:none;
+}
+
+@keyframes sparkle{
+0%,100%{transform:scale(1) rotate(0)}
+50%{transform:scale(1.2) rotate(180deg)}
+}
+
+/* Mobile Love Message */
+
+.mobile-love{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:rgba(255,77,166,.95);
+padding:15px 25px;
+border-radius:50px;
+animation:pulse 2s infinite;
+z-index:100;
+font-weight:bold;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+@keyframes pulse{
+0%,100%{transform:translateX(-50%) scale(1)}
+50%{transform:translateX(-50%) scale(1.05)}
+}
+
+/* Parallax */
+
+section{
+background-attachment:fixed;
+width:100%;
+box-sizing:border-box;
+padding-left:20px;
+padding-right:20px;
+}
+
+/* Responsive */
+
+img{
+max-width:100%;
+height:auto;
+}
+
+video{
+width:100%;
+height:auto;
+}
+
+@media(max-width:768px){
+
+body{
+cursor:auto;
+}
+
+.cursor,
+.cursor.follower{
+display:none;
+}
+
+section{
+background-attachment:scroll;
+}
+
+.sun{
+width:70px;
+height:70px;
+top:20px;
+right:20px;
+}
+
+.tree{
+font-size:80px;
+}
+
+.bird{
+font-size:24px;
+}
+
+.diamond-ring{
+font-size:70px;
+}
+
+button{
+font-size:16px;
+padding:10px 18px;
+}
+
+.rainbow{
+font-size:2.2rem!important;
+}
+
+.mobile-love{
+display:block!important;
+}
+
+}
+
+</style>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- 🔥 LOADING SCREEN 🔥 -->
+<div id="loader">
+  <div class="text-6xl mb-5 animate-bounce">💖</div>
+  <div class="w-24 h-24 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+  <p class="mt-5 text-2xl font-bold romantic">Loading Our Love Story...</p>
+</div>
+
+
+
+<!-- 🎵 MUSIC 🎵 -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<button class="toggle backdrop-blur-sm" onclick="toggleNight()">🌙 Night Mode</button>
+
+<!-- ☀️ SUN ☀️ -->
+<div class="sun"></div>
+
+<!-- 🌳 TREES 🌳 -->
+<div class="tree" style="left:0">🌳</div>
+<div class="tree" style="left:85%">🌳</div>
+
+<!-- 🐦 BIRDS 🐦 -->
+<div class="bird" style="top:100px">🐦</div>
+<div class="bird" style="top:150px;animation-delay:5s">🕊️</div>
+
+<!-- 🚀 HERO SECTION 🚀 -->
+<section class="text-center h-screen flex flex-col justify-center items-center relative overflow-hidden">
+  
+  <h1 class="text-6xl md:text-7xl romantic glow rainbow mb-10 animate-pulse">
+    Hello Mohona ❤️
+  </h1>
+
+  <button class="text-2xl px-12 py-6 mb-10 shadow-2xl" onclick="startJourney()">
+    💖 Start Our Journey 💖
+  </button>
+
+  <div id="flowerField" class="relative w-full max-w-xl h-40 mt-10"></div>
+
+  <!-- 💕 KISS BUTTON 💕 -->
+  <button onclick="playSound('kiss')" class="text-3xl mt-10 hover:scale-125 transition-all" title="Kiss Sound 😘">
+    😘
+  </button>
+</section>
+
+<!-- 📖 TIMELINE 📖 -->
+<section class="py-20 text-center">
+  <h2 class="text-5xl romantic glow mb-10 rainbow">Our Love Story 📖</h2>
+  
+  <div class="timeline max-w-2xl mx-auto space-y-6">
+    <p class="text-2xl p-6 bg-white/20 rounded-3xl backdrop-blur-sm hover:scale-105 transition-all">❤️ প্রথম দেখা - এক নজরে ভালোবাসা</p>
+    <p class="text-2xl p-6 bg-white/20 rounded-3xl backdrop-blur-sm hover:scale-105 transition-all">🌸 প্রথম কথা - হৃদয় জয়</p>
+    <p class="text-2xl p-6 bg-white/20 rounded-3xl backdrop-blur-sm hover:scale-105 transition-all">💖 ভালোবাসা শুরু - চিরকালের জন্য</p>
+    <p class="text-2xl p-6 bg-white/20 rounded-3xl backdrop-blur-sm hover:scale-105 transition-all">💍 আজ প্রোপোজ - চিরদিনের সঙ্গী</p>
+  </div>
+</section>
+
+<section class="py-20 text-center memories">
+  <h2 class="text-5xl romantic glow mb-10">Sweet Memories 📸</h2>
+  
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-5 max-w-5xl mx-auto">
+
+    <div class="group relative overflow-hidden rounded-3xl hover:scale-110 transition-all">
+      <img src="./images/pic1.jpg" class="w-64 h-64 object-cover rounded-3xl mx-auto">
+      <p class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white font-bold bg-black/50 px-4 py-2 rounded-xl">First Date</p>
+    </div>
+
+    <div class="group relative overflow-hidden rounded-3xl hover:scale-110 transition-all">
+      <img src="./images/pic2.jpg" class="w-64 h-64 object-cover rounded-3xl mx-auto">
+      <p class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white font-bold bg-black/50 px-4 py-2 rounded-xl">Rose Garden</p>
+    </div>
+
+    <div class="group relative overflow-hidden rounded-3xl hover:scale-110 transition-all">
+      <img src="./images/pic3.jpg" class="w-64 h-64 object-cover rounded-3xl mx-auto">
+      <p class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white font-bold bg-black/50 px-4 py-2 rounded-xl">Together Forever</p>
+    </div>
+
+    <div class="group relative overflow-hidden rounded-3xl hover:scale-110 transition-all">
+      <img src="./images/pic4.jpg" class="w-64 h-64 object-cover rounded-3xl mx-auto">
+      <p class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white font-bold bg-black/50 px-4 py-2 rounded-xl">Our Future</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="text-center py-20">
+  <h2 class="text-5xl romantic glow mb-10 rainbow">Our Love Videos 🎥</h2>
+  
+  <button class="text-xl px-8 py-4 mb-10" onclick="showVideos()">▶️ Play Love Videos</button>
+  
+  <div id="videos" class="hidden grid md:grid-cols-3 gap-10 max-w-5xl mx-auto mt-10">
+
+    <video class="rounded-3xl shadow-xl" controls>
+      <source src="./images/video4.mp4" type="video/mp4">
+    </video>
+
+    <video class="rounded-3xl shadow-xl" controls>
+      <source src="./images/video5.mp4" type="video/mp4">
+    </video>
+
+    <video class="rounded-3xl shadow-xl" controls>
+      <source src="./images/video1.mp4" type="video/mp4">
+    </video>
+
+  </div>
+</section>
+
+<!-- 🌹 ROSE GARDEN 🌹 -->
+<section class="text-center py-20">
+  <h2 class="text-5xl romantic glow mb-10">Our Rose Garden 🌹</h2>
+  
+  <button class="text-xl px-8 py-4 mb-10" onclick="growRoses()">🌱 Grow Roses</button>
+  
+  <div id="roseGarden" class="relative h-40 mt-10 border-4 border-white/30 rounded-3xl overflow-hidden"></div>
+</section>
+
+<!-- 💎 ULTIMATE PROPOSAL 💎 -->
+<section class="text-center py-20 proposal relative overflow-hidden">
+  <h2 class="text-5xl md:text-6xl romantic glow mb-10 rainbow">The Big Question 💍</h2>
+  
+  <div class="relative mx-auto mb-20" style="max-width: 300px;">
+    <div class="diamond-ring mb-10 mx-auto" onclick="ultimateProposal()" title="Click for Magic ✨">
+      💎
+    </div>
+    
+    <div id="proposalBox" style="display:none;" class="space-y-10">
+      <!-- Couple Photos -->
+      <div class="flex flex-col md:flex-row justify-center gap-10 items-center mb-16">
+        <div class="text-center animate-bounce">
+          <div class="w-32 h-32 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-3 border-6 border-white shadow-2xl">
+            <span class="text-4xl">❤️</span>
+          </div>
+          <p class="text-xl font-bold romantic glow">আমি</p>
+        </div>
+        
+        <div class="text-6xl animate-pulse">💞</div>
+        
+        <div class="text-center animate-bounce">
+          <div class="w-32 h-32 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-3 border-6 border-white shadow-2xl">
+            <span class="text-4xl">👰</span>
+          </div>
+          <p class="text-xl font-bold romantic glow">Mohona</p>
+        </div>
+      </div>
+      
+      <!-- Proposal Text -->
+      <p class="text-3xl md:text-4xl mb-12 font-cursive leading-relaxed max-w-2xl mx-auto px-4">
+        মোহনা ❤️ <br>
+        <span class="text-5xl rainbow">তুমি কি আমাকে বিয়ে করতে চাও?</span>
+      </p>
+      
+      <!-- YES Button -->
+      <button onclick="sayYes()" class="text-3xl md:text-4xl px-12 md:px-20 py-6 bg-gradient-to-r from-pink-500 via-red-500 to-purple-500 rounded-full shadow-2xl hover:scale-110 transition-all font-bold border-4 border-white">
+        হ্যাঁ! 💍❤️
+      </button>
+      
+      <p id="finalMsg" class="text-4xl md:text-5xl mt-10 hidden romantic glow rainbow animate-bounce">
+        🎉 ধন্যবাদ Mohona! 🎉 <br>
+        <span class="text-6xl">I Love You Forever 💖</span>
+      </p>
+    </div>
+  </div>
+<section class="text-center py-20">
+<h2 class="text-5xl romantic glow mb-10 rainbow">
+Our Love Time ❤️
+</h2>
+
+<div id="loveCounter" class="text-4xl font-bold rainbow">
+Loading...
+</div>
+</section>
+
+<!-- 📱 MOBILE LOVE MESSAGE 📱 -->
+<div class="mobile-love hidden md:hidden">
+  Mohona, I Love You Forever ❤️💕
+</div>
+
+<script>
+
+let heartInterval;
+
+// 🔥 LOADING SCREEN 🔥
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('loader').style.display = 'none';
+    }, 1000);
+  }, 2000);
+  
+  document.getElementById('bgMusic').play().catch(() => {});
+  createFloatingHearts();
+  updateLoveCounter();
+});
+
+// 🌙 DAY/NIGHT CYCLE 🌙
+setInterval(()=>{
+  document.body.classList.toggle("night");
+  if(document.body.classList.contains("night")) {
+    createStars();
+  } else {
+    document.querySelectorAll('.star').forEach(star => star.remove());
+  }
+}, 25000);
+
+function toggleNight(){
+  document.body.classList.toggle("night");
+  if(document.body.classList.contains("night")) {
+    createStars();
+  } else {
+    document.querySelectorAll('.star').forEach(star => star.remove());
+  }
+}
+
+// ⭐ STARS ⭐
+function createStars(){
+  if(!document.body.classList.contains("night")) return;
+  
+  for(let i=0; i<80; i++){
+    let star = document.createElement("div");
+    star.className = "star";
+    star.innerHTML = "✦";
+    star.style.top = Math.random()*100 + "%";
+    star.style.left = Math.random()*100 + "%";
+    star.style.animationDelay = Math.random()*2 + "s";
+    document.body.appendChild(star);
+  }
+}
+
+// 💖 FLOATING HEARTS 💖
+function createFloatingHearts() {
+  setInterval(() => {
+    for(let i = 0; i < 3; i++) {
+      let heart = document.createElement("div");
+      const hearts = ["💖","💕","💗","💝","💓","💞"];
+      heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+      heart.className = "heart-float";
+      heart.style.left = Math.random()*100 + "vw";
+      heart.style.fontSize = (15 + Math.random()*20) + "px";
+      heart.style.animationDuration = (6 + Math.random()*4) + "s";
+      document.body.appendChild(heart);
+      
+      setTimeout(() => heart.remove(), 10000);
+    }
+  }, 800);
+}
+
+// 🌸 JOURNEY START 🌸
+function startJourney(){
+  let field = document.getElementById("flowerField");
+  field.innerHTML = "";
+  
+  for(let i=0; i<25; i++){
+    let flower = document.createElement("div");
+    flower.className = "flower";
+    const flowers = ["🌸","🌼","🌷","🌻","🌺"];
+    flower.innerHTML = flowers[Math.floor(Math.random()*flowers.length)];
+    flower.style.left = Math.random()*90 + "%";
+    field.appendChild(flower);
+  }
+  
+  if(!heartInterval) {
+    heartInterval = setInterval(() => {
+      let heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random()*100 + "%";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 500);
+  }
+}
+
+// 🎥 SHOW VIDEOS 🎥
+function showVideos(){
+  document.getElementById("videos").classList.remove("hidden");
+}
+
+// 🌹 ROSE GARDEN 🌹
+function growRoses(){
+  let garden = document.getElementById("roseGarden");
+  garden.innerHTML = "";
+  
+  for(let i=0; i<20; i++){
+    let rose = document.createElement("div");
+    rose.className = "rose";
+    rose.innerHTML = "🌹";
+    rose.style.left = Math.random()*90 + "%";
+    garden.appendChild(rose);
+  }
+}
+
+// 💎 ULTIMATE PROPOSAL 💎
+function ultimateProposal(){
+  document.getElementById("proposalBox").style.display = "block";
+}
+
+// 💍 SAY YES 💍
+function sayYes(){
+  document.getElementById("finalMsg").classList.remove("hidden");
+  celebrate();
+}
+
+// 🎊 CONFETTI 🎊
+function celebrate() {
+  for(let i = 0; i < 10; i++) {
+    setTimeout(() => {
+      confetti({
+        particleCount: 150,
+        spread: 90,
+        origin: { y: 0.6 }
+      });
+    }, i * 300);
+  }
+}
+
+/* ❤️ RELATIONSHIP COUNTDOWN ❤️ */
+
+const loveStartDate = new Date("2025-10-10 00:00:00");
+
+function updateLoveCounter(){
+
+  const now = new Date();
+  const diff = now - loveStartDate;
+
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff/(1000*60*60))%24);
+  const minutes = Math.floor((diff/(1000*60))%60);
+  const seconds = Math.floor((diff/1000)%60);
+
+  const counter = document.getElementById("loveCounter");
+
+  if(counter){
+    counter.innerHTML =
+      days + " Days ❤️ " +
+      hours + " Hours 💕 " +
+      minutes + " Minutes 💖 " +
+      seconds + " Seconds";
+  }
+}
+
+setInterval(updateLoveCounter,1000);
+
+</script>
+</body>
+</html>
